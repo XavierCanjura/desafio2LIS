@@ -5,7 +5,7 @@ La aplicación esta creada con el lenguaje de programación PHP utilizando la es
 
 Esta aplicación lleva la administración de productos, usuarios, clientes, categorias y la vista de las facturas generadas. Ademas cuenta con un carrito de compras.  
 
-#Integrantes
+## Integrantes
 - Fernando Xavier Maldonado Canjura
 - Salvador Alejandro Gonzalez Melendez
 
