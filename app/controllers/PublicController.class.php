@@ -166,7 +166,7 @@
             try
             {
                 $this->detalleFatura->setIdFactura($_SESSION['id_factura']);
-                $total = number_format($this->detalleFatura->total(), 2);
+                $total = $this->detalleFatura->total()[0];
                 if(!$this->factura->setTotal($total))
                 {
                     throw new Exception('Ocurrio un problema al generar la factura 2');
@@ -177,7 +177,7 @@
                 }
                 if($this->factura->updateFactura())
                 {
-                    //To do: Generar pdf de factura
+                    echo json_encode(['modificado' => true]);
                 }
                 else
                 {

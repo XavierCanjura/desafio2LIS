@@ -84,8 +84,23 @@
         }
 
         //METODOS PARA EL CRUD
-        public function getFacturas(){}
-        public function getFacturaForId(){}
+        public function getFacturas()
+        {
+            $sql = "SELECT id_factura, u.usuario, fecha, total FROM facturas f 
+            INNER JOIN usuarios u ON f.id_usuario_FK = u.id_usuario 
+            ORDER BY fecha DESC";
+            $params = array();
+            return Database::getRows($sql, $params);
+        }
+
+        public function getFacturaForId()
+        {
+            $sql = "SELECT * FROM facturas f 
+            INNER JOIN usuarios u ON f.id_usuario_FK = u.id_usuario 
+            WHERE f.id_factura = ?";
+            $params = array($this->id_factura);
+            return Database::getRow($sql, $params);
+        }
         public function createFactura()
         {
             $today = date('y-m-d');

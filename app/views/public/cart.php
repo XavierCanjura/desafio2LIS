@@ -53,7 +53,7 @@
                 <button type='button' class='btn-close' onclick="$('#modalCard').modal('hide')"></button>
             </div>
             <div class='modal-body'>
-                <form method="POST" class="row g-3 needs-validation" novalidate>
+                <form class="row g-3 needs-validation" novalidate>
                     <div class='col-md-6'>
                         <label for='tarjeta' class='form-label'>Número de tarjeta de credito o debido</label>
                         <input type='text' class='form-control' id='tarjeta' name='tarjeta' required>
@@ -78,7 +78,7 @@
                     
 
                     <div class="d-flex col-12 justify-content-center">
-                        <button class="btn btn-primary me-3" type="submit" id='buy'>Pagar</button>
+                        <button class="btn btn-primary me-3" type="button" id='buy'>Pagar</button>
                     </div>
                 </form>
             </div>

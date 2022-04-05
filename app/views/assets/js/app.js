@@ -46,7 +46,10 @@ if(btnShop != null)
 
 if(btnBuy != null)
 {
-    btnBuy.addEventListener('click', buy);
+    btnBuy.addEventListener('click', (e) => {
+        e.preventDefault();
+        buy();
+    });
 }
 
 //FUNCTIONS
@@ -121,7 +124,7 @@ async function buy()
         }
         else
         {
-
+            window.open('/desafio2/factura/', '_blank');
         }
     })
     .catch( error => console.log(error));

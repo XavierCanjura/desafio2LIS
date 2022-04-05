@@ -30,6 +30,7 @@
 
                     <div class="d-flex col-12 justify-content-center">
                         <button class="btn btn-primary me-3" type="submit" name='acceder'>Iniciar sesion</button>
+                        <a class='btn btn-secondary' href="<?=PATH?>/auth/createClient/">Registrarse</a>
                     </div>
                 </form>
             </div>

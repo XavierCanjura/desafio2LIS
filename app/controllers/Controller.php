@@ -23,6 +23,26 @@
             }
         }
 
+        public function renderPDF($view, $viewBag=array())
+        {
+            $file = "./app/views/".static::class."/$view";
+            $file=str_replace('Controller', "", $file);
+            $file = strtolower($file);
+            if(is_file($file))
+            {
+                extract($viewBag);
+                ob_start(); //Abriendo buffer
+                require_once($file);
+                $content = ob_get_contents(); //leyendo el contenido del buffer
+                ob_end_clean(); //Cerrando el buffer
+                echo $content;
+            }
+            else
+            {
+                echo "<h1>Archivo $view no existe</h1>";
+            }
+        }
+
         //FUNCION PARA INDEX
         abstract function index();
 

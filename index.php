@@ -27,7 +27,11 @@
     $param = $router->param; 
 
     spl_autoload_register(function($class){
-        require_once('./app/controllers/'.$class.'.class.php');
+        $file = './app/controllers/'.$class.'.class.php';
+        if(file_exists($file))
+        {
+            require_once($file);
+        }
     });
 
     $controlador = new $controller;

@@ -140,15 +140,22 @@
                         if($this->model->checkPassword())
                         {
                             $path = PATH;
-                            $_SESSION['auth'] = $this->model->getInfoSession();
-                            if($_SESSION['auth']['id_tipo_usuario'] != 3)
+                            $infoAuth = $this->model->getInfoSession();
+                            if($infoAuth['estado'] == 1)
                             {
-                                header("Location: $path/usuario/");
+                                $_SESSION['auth'] = $infoAuth;
+                                if($_SESSION['auth']['id_tipo_usuario'] != 3)
+                                {
+                                    header("Location: $path/producto/");
+                                }
+                                else
+                                {
+                                    header("Location: $path/cliente/");
+                                }
                             }
                             else
                             {
-                                //To do: redirigir a public
-                                header("Location: $path/cliente/");
+                                throw new Exception('Su cuenta esta inactiva');
                             }
                         }
                         else
@@ -174,6 +181,78 @@
             $path = PATH;
             $this->model->logout();
             header("Location: $path/auth/login");
+        }
+
+        public function createClient()
+        {
+            $this->view('register.php', 'Registrar');
+        }
+
+        public function storeClient()
+        {
+            $viewBag = array();
+            $usuarioData = array();
+            $path = PATH;
+            try
+            {
+                if(isset($_POST['crear']))
+                {
+                    extract($_POST);
+                }
+
+                $usuarioData['nombres'] = $nombres;
+                $usuarioData['apellidos'] = $apellidos;
+                $usuarioData['correo'] = $correo;
+                $usuarioData['usuario'] = $usuario;
+                $usuarioData['password'] = $password;
+                $usuarioData['password_confirm'] = $password_confirm;
+
+                //VALIDACION DE CAMPOS
+                if(!$this->model->setNombres($nombres))
+                {
+                    throw new Exception('Solo ingrese letras en los nombres');
+                }
+                if(!$this->model->setApellidos($apellidos))
+                {
+                    throw new Exception('Solo ingrese letras en los apellidos');
+                }
+                if(!$this->model->setCorreo($correo))
+                {
+                    throw new Exception('Ingrese un correo valido');
+                }
+                if(!$this->model->setIdTipoUsuario(3))
+                {
+                    throw new Exception('Selecione el tipo de usuario');
+                }
+                if(!$this->model->setUsuario($usuario))
+                {
+                    throw new Exception('Ingrese el nombre de usuario');
+                }
+                if($password !== $password_confirm)
+                {
+                    throw new Exception('Las contraseñas no son iguales');
+                }
+                if(!$this->model->setPassword($password))
+                {
+                    throw new Exception('La contraseña no puede contener caracteres especiales');
+                }
+                //FIN DE VALIDACION DE CAMPOS
+
+                if($this->model->createUsuario())
+                {
+                    header("Location: $path/auth/login");
+                }
+                else
+                {
+                    throw new Exception(Database::getException());
+                }
+            }
+            catch(Exception $error)
+            {
+                $viewBag['usuario'] = $usuarioData;
+                $viewBag['error'] = $error->getMessage();
+                $this->view('register.php', 'Registrar', $viewBag);
+            }
         }
     }
 ?>
