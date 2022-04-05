@@ -16,7 +16,22 @@
         //FUNCION PARA INDEX
         public function index()
         {
-            $viewBag['productos'] = $this->model->getProductosPublic();
+            $viewBag = array();
+            if(isset($_POST['buscar']))
+            {
+                if($this->model->setNombre($_POST['txtbuscar']))
+                {
+                    $viewBag['productos'] = $this->model->searchProduct();
+                }
+                else
+                {
+                    $viewBag['productos'] = $this->model->getProductosPublic();
+                }
+            }
+            else
+            {
+                $viewBag['productos'] = $this->model->getProductosPublic();
+            }
             $this->view('index.php', 'Productos', $viewBag);
         }
 

@@ -1,9 +1,9 @@
 <section class="">
     <div class="container px-4 px-lg-5 mt-3">
-        <form method="POST" class='mb-3'>
+        <form action='<?=PATH?>/public/' method="POST" class='mb-3'>
             <div class="row d-flex justify-content-end">
-                <div class="col col-md-3">
-                <input type="text" name='txtBuscar' class="form-control" id="exampleFormControlInput1" placeholder="Buscar producto">
+                <div class='col-md-3'>
+                    <input type='text' class='form-control' id='txtbuscar' name='txtbuscar' placeholder='Buscar por nombre'>
                 </div>
                 <div class="col col-auto ">
                     <button class='btn btn-primary' type="submit" name='buscar'>Buscar</button>

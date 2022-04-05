@@ -222,5 +222,15 @@
             $params = array($this->codigo_producto);
             return Database::getRows($sql, $params);
         }
+
+        public function searchProduct()
+        {
+            $nombre = $this->nombre;
+            $sql = "SELECT codigo_producto, nombre, descripcion, precio, c.categoria, imagen, existencias FROM productos p 
+            INNER JOIN categorias c ON p.id_categoria_FK = c.id_categoria
+            WHERE nombre LIKE '%$nombre%'";
+            $params = array();
+            return Database::getRows($sql, $params);
+        }
     }
 ?>
